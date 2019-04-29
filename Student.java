@@ -6,9 +6,9 @@ import java.util.List;
  * Defines the student object and associated operations
  * 
  * @author Logan C.W. Drescher
- * @version 0.0.0
+ * @version 0.0.
  * Date Created:        April 21st, 2019
- * Date Last Edited:    April 21st, 2019
+ * Date Last Edited:    April 28st, 2019
  */
 
 public class Student {
@@ -16,7 +16,7 @@ public class Student {
     private String name;
     private HashMap<String, Boolean> blackList;
     private HashMap<String, Boolean> whiteList;
-    private HashMap<String, Boolean> previousPartners;
+    private HashMap<String, Boolean> previousList;
 
     // Constructors
     /**
@@ -27,7 +27,7 @@ public class Student {
         this.name = name;
         blackList = new HashMap<>();
         whiteList = new HashMap<>();
-        previousPartners = new HashMap<>();
+        previousList = new HashMap<>();
     }
 
     public Student (String name, List<String> blackList, List<String> whiteList, List<String> previousPartners){
@@ -63,7 +63,7 @@ public class Student {
             itter = previousPartners.iterator();
             while(itter.hasNext()){
                 String PPStudent = itter.next();
-                Boolean isMapped = this.previousPartners.putIfAbsent(PPStudent, true);
+                Boolean isMapped = this.previousList.putIfAbsent(PPStudent, true);
                 if (isMapped != null){  // The value has been mapped previously if this is true
                     System.out.println("Note: " + PPStudent + 
                         " had already been partners with " + this + ".");
@@ -73,6 +73,64 @@ public class Student {
     } // End of 4 param Constructor
 
     // General Methods
+
+    public void addToBlackList(String s, boolean b){
+        blackList.put(s, b);
+    }
+
+    public void addToWhiteList(String s, boolean b){
+        whiteList.put(s, b);
+    }
+
+    public void addToPreviousList(String s, boolean b){
+        previouskList.put(s, b);
+    }
+
+    public String removeFromBlackList(String s){
+        if (blackList.containsKey(s)){
+            return blackList.remove(s);
+        } else {
+            return null;
+        }
+    }
+
+    public String removeFromWhiteList(String s){
+        if (whiteList.containsKey(s)){
+            return blackList.remove(s);
+        } else {
+            return null;
+        }
+    }
+
+    public String removeFromPreviousList(String s){
+        if (previousList.containsKey(s)){
+            return blackList.remove(s);
+        } else {
+            return null;
+        }
+    }
+
+    public boolean isBlackListed(String s){
+        if(blackList.containsKey(s)){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isWhiteListed(String s){
+        if(whiteList.containsKey(s)){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isPreviousListed(String s){
+        if(previousList.containsKey(s)){
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Override of the toString() method to work with students
      * @return name of the student represented by the class
